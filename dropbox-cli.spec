@@ -11,6 +11,7 @@ BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
 %pyrequires_eq  python-modules
 BuildArch:	noarch
+BuildRequires:	dos2unix
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -18,12 +19,14 @@ Dropbox Linux CLI.
 
 %prep
 %setup -q -c -T
+install %{SOURCE0} .
+dos2unix dbcli.py
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_bindir}
 
-install %{SOURCE0} $RPM_BUILD_ROOT%{_bindir}/dropbox-cli
+install dbcli.py $RPM_BUILD_ROOT%{_bindir}/dropbox-cli
 
 %clean
 rm -rf $RPM_BUILD_ROOT
